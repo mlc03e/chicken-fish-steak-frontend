@@ -12,3 +12,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.createReception {
+  display: inline-grid;
+  border-color: black;
+  border-width: medium;
+  border-style: solid;
+  padding-top: 74px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 40px;
+}
+.goToReception {
+  display: inline-grid;
+  border-color: black;
+  border-width: medium;
+  border-style: solid;
+  padding: 40px;
+}
+.navBar {
+  background-color: #deeafc;
+  padding: 20px;
+}
+.sampleBoard {
+  display: inline-grid;
+  border-color: black;
+  border-width: medium;
+  border-style: solid;
+  padding: 200px;
+}
+.createButtons {
+  border-color: black;
+  border-width: medium;
+  border-style: solid;
+
+}
+.receptionBoard {
+  display: inline-grid;
+  border-color: black;
+  border-width: medium;
+  border-style: solid;
+  padding: 200px;
+}
