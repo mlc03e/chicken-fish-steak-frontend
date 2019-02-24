@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 
 class Reception extends Component {
 
+
   render() {
+    
     return (
-      <div className= 'createButtons'>
-        <h1> Reception </h1>
-        <button>Add Comment</button>
-        <br></br>
-        <button>Add Photo</button>
-        <br></br>
-        <div className='receptionBoard'>
+      <>
+        <div className= 'createButtons'>
+          <button onClick={this.props.addComment}>Add Comment</button>
+          <br></br>
+          <button onClick={this.props.addPhoto}>Add Photo</button>
+        </div>
+        <div className='sampleBoard'>
           <h1> Board</h1>
         </div>
-      </div>
+
+      </>
     );
   }
 

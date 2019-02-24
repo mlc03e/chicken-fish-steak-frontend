@@ -1,20 +1,24 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: grid;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.createContainer {
+  display: grid;
+}
 .createReception {
   display: inline-grid;
-  border-color: black;
+  margin-right: 7%;
+  grid-column-gap: 100px;
+  border-color: "#4f5359";
   border-width: medium;
   border-style: solid;
   padding-top: 74px;
@@ -24,32 +28,74 @@ code {
 }
 .goToReception {
   display: inline-grid;
-  border-color: black;
+  margin-right: 7%;
+  margin-top: 7%;
+  border-color: "#4f5359";
   border-width: medium;
   border-style: solid;
   padding: 40px;
 }
 .navBar {
+  display: flex;
   background-color: #deeafc;
   padding: 20px;
+  justify-content: space-between;
 }
 .sampleBoard {
-  display: inline-grid;
-  border-color: black;
-  border-width: medium;
+  grid-column-start: 2;
+  grid-column-end: span col4-start;
+  grid-row-start: 1;
+  grid-row-end: span 2;
+  border-color: "#4f5359";
+  border-width: thin;
   border-style: solid;
-  padding: 200px;
+  width: 650px;
+  height: 500px;
+  margin-top: 5%;
+
+}
+#nameDate {
+  font-size: 20px;
 }
 .createButtons {
-  border-color: black;
-  border-width: medium;
+  border-color: "#4f5359";
+  border-width: thin;
   border-style: solid;
-
+  margin-left: 50px;
+  display: table;
+  margin-right: 95px;
+  margin-top: 40px;
+  padding: 10px;
+}
+.nameDateForm {
+  padding: 20px;
+  padding-top: 50px;
+}
+.commentForm {
+  padding: 5px;
+  padding-top: 15px;
 }
 .receptionBoard {
   display: inline-grid;
-  border-color: black;
-  border-width: medium;
+  border-color: "#4f5359";
+  border-width: thin;
   border-style: solid;
   padding: 200px;
+}
+.guestList {
+  grid-column: 1/ span 2;
+  grid-row: third-line / 4;
+  border-color: "#4f5359";
+  border-width: thin;
+  border-style: solid;
+  width: 243px;
+  height: 300px;
+  margin-left: 50px;
+  margin-top: 30px;
+}
+.comments {
+  border-color: "#4f5359";
+  border-width: thin;
+  border-style: solid;
+  padding: 5px;
 }

@@ -19,12 +19,12 @@ class Home extends Component {
           <button onClick={() => this.props.makeJi('Ji')}>Make Ji</button>
             <div className='createReception'>
               <img src="https://icons-for-free.com/free-icons/png/512/2199097.png" width= '200px'/>
-              <Link to="/create" >Create Reception</Link>
+              <Link style={{fontSize: "30px", color: "#4f5359", textDecoration: 'none' }}to="/create" >Create Reception</Link>
             </div>
 
             <div className='goToReception'>
               <img src= 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-nAhBDkmOadq89UiJWOoJPtvss0ZP_rx2EuBoBMZhh-bu0UjMmg' width= '200px'/>
-              <Link to="/reception">Go to Reception</Link>
+              <Link style={{fontSize: "30px", color: "#4f5359", textDecoration: 'none' }}to="/reception">Go to Reception</Link>
             </div>
           </>
         </Router>
