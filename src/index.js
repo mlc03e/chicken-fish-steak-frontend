@@ -11,5 +11,5 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 let store = createStore(reducer)
 
-ReactDOM.render(<Router><Provider store={store}><App /></Provider></Router>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><Router><App /></Router></Provider>, document.getElementById('root'));
 serviceWorker.unregister();

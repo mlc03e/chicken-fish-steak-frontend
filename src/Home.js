@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import ReactDOM from 'react-router-dom'
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 
 
@@ -13,7 +13,6 @@ class Home extends Component {
     console.log(this.props)
     return (
       <div>
-      <Router>
         <>
         {this.props.beef}
           <button onClick={() => this.props.makeJi('Ji')}>Make Ji</button>
@@ -27,7 +26,6 @@ class Home extends Component {
               <Link style={{fontSize: "30px", color: "#4f5359", textDecoration: 'none' }}to="/reception">Go to Reception</Link>
             </div>
           </>
-        </Router>
       </div>
     );
   }

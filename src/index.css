@@ -14,6 +14,9 @@ code {
 .createContainer {
   display: grid;
 }
+.reception {
+  display: grid;
+}
 .createReception {
   display: inline-grid;
   margin-right: 7%;
@@ -63,7 +66,7 @@ code {
   border-style: solid;
   margin-left: 50px;
   display: table;
-  margin-right: 95px;
+  margin-right: 90px;
   margin-top: 40px;
   padding: 10px;
 }
@@ -76,11 +79,25 @@ code {
   padding-top: 15px;
 }
 .receptionBoard {
-  display: inline-grid;
+  /* display: run-in;
   border-color: "#4f5359";
   border-width: thin;
   border-style: solid;
-  padding: 200px;
+  width: 70%;
+  height: auto;
+  margin-top: 5%;
+  margin-left: 400px; */
+  grid-column-start: 2;
+  grid-column-end: span col4-start;
+  grid-row-start: 1;
+  grid-row-end: span 2;
+  border-color: "#4f5359";
+  border-width: thin;
+  border-style: solid;
+  width: 60%;
+  height: 700px, auto;
+  margin-top: 5%;
+  margin-left: 10%;
 }
 .guestList {
   grid-column: 1/ span 2;

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import Login from './Login'
 import NavBar from './NavBar'
 import Home from './Home'
 import ReactDOM from 'react-router-dom'
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Create from './Create'
 import Reception from './Reception'
@@ -15,14 +15,19 @@ class App extends Component {
   state= {
     commentList: [],
     photoList: [],
-    invitedGuestsList: []
+    invitedGuestsName: '',
+    invitedGuestsEmail: '',
+    receptionName: '',
+    receptionDate: ''
   }
-  storeNameDate=(name, date)=> {
-    console.log(name, date);
+  storeNameDate=(addedName, addedDate)=> {
+    this.setState({receptionName: [...this.state.receptionName, addedName],
+    receptionDate: [...this.state.receptionDate, addedDate]})
   }
   invitedGuests=(newGuest, newEmail)=> {
-    // this.setState({ invitedGuestsList: [...this.state.invitedGuestsList, {newGuest, newEmail}]})
-    console.log(newGuest,newEmail);
+    this.setState({ invitedGuestsName: [...this.state.invitedGuestsName, newGuest],
+    invitedGuestsEmail: [...this.state.invitedGuestsEmail, newEmail]
+    })
   }
   logComment=(newComment)=> {
     this.setState({commentList: [...this.state.commentList, newComment]})
@@ -33,20 +38,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Router>
         <>
 
           <Route path="/" component={NavBar}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/home" exact component={Home}/>
-        <Switch>
           <Route path="/create"  component={()=><Create storeNameDate={this.storeNameDate} invitedGuests={this.invitedGuests}
             logComment={this.logComment} logPhoto={this.logPhoto} commentList={this.state.commentList} photoList={this.state.photoList}
-            invitedGuestsList={this.state.invitedGuestsList} />} />
+            invitedGuestsName={this.state.invitedGuestsName} invitedGuestsEmail={this.state.invitedGuestsEmail} receptionName={this.state.receptionName} receptionDate={this.state.receptionDate}/>} />
           <Route path="/reception"  component={Reception}/>
-        </Switch>
       </>
-        </Router>
+
       </div>
     );
   }
