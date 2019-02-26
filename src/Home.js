@@ -10,12 +10,10 @@ import { withRouter } from "react-router";
 class Home extends Component {
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <>
-        {this.props.beef}
-          <button onClick={() => this.props.makeJi('Ji')}>Make Ji</button>
             <div className='createReception'>
               <img src="https://icons-for-free.com/free-icons/png/512/2199097.png" width= '200px'/>
               <Link style={{fontSize: "30px", color: "#4f5359", textDecoration: 'none' }}to="/create" >Create Reception</Link>
@@ -31,18 +29,20 @@ class Home extends Component {
   }
 
 }
+// {this.props.beef}
+//   <button onClick={() => this.props.makeJi('Ji')}>Make Ji</button>
+// const mapStateToProps = (state) => {
+//   return {
+//     beef: state.beef
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     makeJi: (name) => dispatch({type: "MAKE_JI", payload: name})
+//   }
+// }
 
-const mapStateToProps = (state) => {
-  return {
-    beef: state.beef
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    makeJi: (name) => dispatch({type: "MAKE_JI", payload: name})
-  }
-}
-
-
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Home))
+//
+// export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Home))
+export default Home;

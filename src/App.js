@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Create from './Create'
 import Reception from './Reception'
+import v4 from 'uuid'
 
 class App extends Component {
   state= {
@@ -17,36 +18,86 @@ class App extends Component {
     photoList: [],
     invitedGuestsName: '',
     invitedGuestsEmail: '',
-    receptionName: '',
-    receptionDate: ''
+    // receptionName: '',
+    // receptionDate: '',
+    receptionWhole: {},
+    receptions: [],
+    name: '',
+    date: '',
+    creator: [],
+    guests: [],
+    comments: [],
+    photos: []
   }
   storeNameDate=(addedName, addedDate)=> {
-    this.setState({receptionName: [...this.state.receptionName, addedName],
-    receptionDate: [...this.state.receptionDate, addedDate]})
+    this.setState({name: addedName,
+    date: addedDate})
   }
   invitedGuests=(newGuest, newEmail)=> {
-    this.setState({ invitedGuestsName: [...this.state.invitedGuestsName, newGuest],
+    this.setState({ guests: [...this.state.guests, newGuest],
     invitedGuestsEmail: [...this.state.invitedGuestsEmail, newEmail]
     })
   }
   logComment=(newComment)=> {
-    this.setState({commentList: [...this.state.commentList, newComment]})
+    this.setState({comments: [...this.state.comments, newComment]})
   }
   logPhoto=(newPhoto)=> {
-    this.setState({photoList: [...this.state.photoList, newPhoto]})
+    this.setState({photos: [...this.state.photos, newPhoto]})
   }
+  submitCreator=(creatorName)=> {
+    this.setState({creator: [...this.state.creator, creatorName]})
+  }
+  // submitWholeReception=(wholeName, wholeDate, wholeGuest, wholeEmail, wholeComment, wholePhoto)=> {
+  //   this.setState({ receptionWhole: {wholeName, wholeDate, wholeGuest, wholeEmail, wholeComment, wholePhoto}})
+  // }
+  fetchReceptions= ()=> {
+    fetch('http://localhost:3000/api/v1/receptions')
+    .then(response => response.json())
+    // .then(receptions => this.setState({receptions}))
+    .then(receptions => {
+      const updatedReceptions = receptions.map(reception => {
+        return {...reception, selected: false}
+      })
+      this.setState({
+        receptions: updatedReceptions
+      })
+    }
+    )
+  }
+  createReception=()=> {
+    fetch('http://localhost:3000/api/v1/receptions', {method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },body: JSON.stringify({
+        name: this.state.name,
+        date: this.state.date,
+        creator_id: v4(),
+      })
+    })
+      .then(response => response.json())
+      // .then(newReception=> console.log(newReception))
+      .then(newReception=> this.setState({
+        receptions: [...this.state.receptions, newReception]
+      }))
+  }
+  //change id to creator.id name: creator.name
+  // guests: this.state.guests,
+  // photos: this.state.photos,
+  // comments: this.state.comments
   render() {
     return (
       <div className="App">
         <>
-
           <Route path="/" component={NavBar}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/home" exact component={Home}/>
           <Route path="/create"  component={()=><Create storeNameDate={this.storeNameDate} invitedGuests={this.invitedGuests}
-            logComment={this.logComment} logPhoto={this.logPhoto} commentList={this.state.commentList} photoList={this.state.photoList}
-            invitedGuestsName={this.state.invitedGuestsName} invitedGuestsEmail={this.state.invitedGuestsEmail} receptionName={this.state.receptionName} receptionDate={this.state.receptionDate}/>} />
-          <Route path="/reception"  component={Reception}/>
+            logComment={this.logComment} logPhoto={this.logPhoto} comments={this.state.comments} photos={this.state.photos}
+            guests={this.state.guests} invitedGuestsEmail={this.state.invitedGuestsEmail} submitCreator={this.submitCreator} creator={this.state.creator}
+            name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.receptions}/>} />
+          <Route path="/reception"  component={()=><Reception receptions={this.state.receptions} fetchReceptions={this.fetchReceptions} comments={this.state.comments}
+            photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto}/>}/>
       </>
 
       </div>
