@@ -27,7 +27,8 @@ class App extends Component {
     creator: [],
     guests: [],
     comments: [],
-    photos: []
+    photos: [],
+    content: ''
   }
   storeNameDate=(addedName, addedDate)=> {
     this.setState({name: addedName,
@@ -39,7 +40,8 @@ class App extends Component {
     })
   }
   logComment=(newComment)=> {
-    this.setState({comments: [...this.state.comments, newComment]})
+    // console.log(newComment)
+    this.setState({content: newComment},()=>console.log(this.state.content))
   }
   logPhoto=(newPhoto)=> {
     this.setState({photos: [...this.state.photos, newPhoto]})
@@ -72,19 +74,37 @@ class App extends Component {
     },body: JSON.stringify({
         name: this.state.name,
         date: this.state.date,
-        creator_id: v4(),
+        creator_id: 1,
       })
     })
       .then(response => response.json())
-      // .then(newReception=> console.log(newReception))
-      .then(newReception=> this.setState({
-        receptions: [...this.state.receptions, newReception]
-      }))
+      .then(newReception=> console.log(newReception))
+      // .then(newReception=> this.setState({
+      //   receptions: [...this.state.receptions, newReception]
+      // }))
   }
-  //change id to creator.id name: creator.name
-  // guests: this.state.guests,
-  // photos: this.state.photos,
-  // comments: this.state.comments
+
+
+//   postComments= (receptionId)=> {
+//   fetch('http://localhost:3000/api/v1/comments', {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Accept": "application/json"
+//     },
+//     body: JSON.stringify({
+//         content: this.state.content,
+//         commentable_id: 5,
+//         commentable_type: 'Guest',
+//         reception_id: receptionId
+//     })
+//   })
+//     .then(response => response.json())
+//     .then(newComment=> console.log(newComment))
+//     // .then(newComment=> this.setState({
+//     //   comments: [...this.state.comments, newComment]
+//     // }))
+// }
   render() {
     return (
       <div className="App">
@@ -97,7 +117,7 @@ class App extends Component {
             guests={this.state.guests} invitedGuestsEmail={this.state.invitedGuestsEmail} submitCreator={this.submitCreator} creator={this.state.creator}
             name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.receptions}/>} />
           <Route path="/reception"  component={()=><Reception receptions={this.state.receptions} fetchReceptions={this.fetchReceptions} comments={this.state.comments}
-            photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto}/>}/>
+            photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto} />}/>
       </>
 
       </div>

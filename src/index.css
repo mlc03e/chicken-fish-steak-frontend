@@ -65,10 +65,12 @@ code {
   border-width: thin;
   border-style: solid;
   margin-left: 50px;
-  display: table;
-  margin-right: 90px;
+  grid-column: 1/ span 1;
+  grid-row: 1;
+  margin-right: 95px;
   margin-top: 40px;
   padding: 10px;
+  width: 200px;
 }
 .nameDateForm {
   padding: 20px;
@@ -94,10 +96,11 @@ code {
   border-color: "#4f5359";
   border-width: thin;
   border-style: solid;
-  width: 60%;
+  width: 800px;
   height: 700px, auto;
   margin-top: 5%;
-  margin-left: 10%;
+  /* margin-left: 20%; */
+  margin-right: 10%;
 }
 .guestList {
   grid-column: 1/ span 2;
@@ -115,4 +118,27 @@ code {
   border-width: thin;
   border-style: solid;
   padding: 5px;
+}
+.createCommentsPhotos {
+  border-color: "#4f5359";
+  border-width: thin;
+  /* border-style: solid; */
+  margin-left: 20px;
+  display: flex;
+  margin-right: 20px;
+  margin-top: 20px;
+  padding: 10px;
+}
+.chooseReception {
+  grid-column: 1/ span 2;
+  grid-row: second-line / 1;
+  border-color: "#4f5359";
+  border-width: thin;
+  border-style: solid;
+  width: 243px;
+  height: 300px, fixed;
+  margin-left: 50px;
+  margin-top: 70px;
+  display: fixed;
+
 }
