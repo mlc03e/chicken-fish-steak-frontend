@@ -28,7 +28,11 @@ class App extends Component {
     guests: [],
     comments: [],
     photos: [],
-    content: ''
+    content: '',
+    currentUser: '',
+    loggedIn:false,
+    // loginName: '',
+    // password: '',
   }
   storeNameDate=(addedName, addedDate)=> {
     this.setState({name: addedName,
@@ -83,8 +87,102 @@ class App extends Component {
       //   receptions: [...this.state.receptions, newReception]
       // }))
   }
+  creatorLogin=(name, password)=> {
+    fetch('http://localhost:3000/api/v1/creators/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+          name: name,
+          password: password,
+      })
+    })
+      .then(response => response.json())
+      // .then(newPhoto=>console.log(newPhoto))
+      .then(creator=> {
+        if (creator.error){
+          alert(creator.error)
+        }
+        else {
+          this.setState({
+            currentUser: creator,
+            loggedIn: true
+          })
+        }
+      })
+  }
+  guestLogin=(name, password)=> {
+    fetch('http://localhost:3000/api/v1/guests/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+          name: name,
+          password: password,
+         // reception_id:
+      })
+    })
+      .then(response => response.json())
+      // .then(guest=>console.log(guest))
+      .then(guest=> {
+        if (guest.error){
+          alert(guest.error)
 
+        }
+        else {
+          this.setState({
+            currentUser: guest,
+            loggedIn: true
+          })
+        }
+      })
+    }
+newCreatorSignUp=(name, password)=> {
+  console.log(name, password);
+  fetch('http://localhost:3000/api/v1/creators', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+        name: name,
+        password: password
+    })
+  })
+    .then(response => response.json())
+    // .then(creator=>console.log(creator))
+    .then(creator=> this.setState({
 
+      currentUser: creator,
+      loggedIn: true
+    }))
+}
+newGuestSignUp=(name, password)=> {
+  fetch('http://localhost:3000/api/v1/guests', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+        name: name,
+        reception_id: 1,
+        password: password
+    })
+  })
+    .then(response => response.json())
+    .then(guest=>console.log(guest))
+    // .then(creator=> this.setState({
+    //
+    //   currentUser: creator,
+    //   loggedIn: true
+    // }))
+}
 //   postComments= (receptionId)=> {
 //   fetch('http://localhost:3000/api/v1/comments', {
 //     method: "POST",
@@ -105,12 +203,17 @@ class App extends Component {
 //     //   comments: [...this.state.comments, newComment]
 //     // }))
 // }
+logOut=()=> {
+  this.setState({currentUser: null})
+}
   render() {
     return (
       <div className="App">
         <>
-          <Route path="/" component={NavBar}/>
-          <Route path="/login" exact component={Login}/>
+          <Route path="/" component={()=><NavBar currentUser={this.state.currentUser} />}/>
+          <Route path="/login" exact component={()=><Login creatorLogin={this.creatorLogin} guestLogin={this.guestLogin}
+            currentUser={this.state.currentUser} loggedIn={this.state.loggedIn} newCreatorSignUp={this.newCreatorSignUp}
+            newGuestSignUp={this.newGuestSignUp} logOut={this.logOut}/>}/>
           <Route path="/home" exact component={Home}/>
           <Route path="/create"  component={()=><Create storeNameDate={this.storeNameDate} invitedGuests={this.invitedGuests}
             logComment={this.logComment} logPhoto={this.logPhoto} comments={this.state.comments} photos={this.state.photos}

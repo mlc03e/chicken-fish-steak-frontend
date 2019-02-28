@@ -8,10 +8,13 @@ import { withRouter } from "react-router";
 class NavBar extends Component {
 
   render() {
+    console.log(this.props);
     return (
       <div className= 'navBar'>
         <Link to="/Home" style={{fontSize: "15px", spacing: '30px', color: "#4f5359", textDecoration: 'none' }} >Home</Link>
-        <Link to="/Login" style={{fontSize: "15px", color: "#4f5359", textDecoration: 'none'}}>LogIn/Out</Link>
+        {this.props.currentUser.name ? <Link to="/Login" style={{fontSize: "15px", color: "#4f5359", textDecoration: 'none'}}>{this.props.currentUser.name}</Link>
+      : <Link to="/Login" style={{fontSize: "15px", color: "#4f5359", textDecoration: 'none'}}>LogIn/Out</Link>}
+
       </div>
     );
   }

@@ -125,8 +125,7 @@ class Create extends Component {
     return (
     <div className= 'createContainer'>
       <div className= "createButtons">
-        <button onClick= {this.addCreator}> Add Your Name </button>
-        <br></br>
+
         <button onClick={this.showNameDateForm}> Add Reception Name and Date</button>
         <br></br>
         <button onClick={this.showInviteForm}>Invite Guests</button>
@@ -140,9 +139,11 @@ class Create extends Component {
         {this.props.guests && <p>Name:{this.props.guests} Email:{this.props.invitedGuestsEmail}</p>}
       </div>
       <div className='sampleBoard'>
-        <h3>Created By {this.props.creator}</h3>
-        {!this.props.name && <h1>Name Date</h1>}
-        <h1 id= 'nameDate' style={{textAlign: 'top'}}>{this.props.name} {this.props.date}</h1>
+
+        {!this.props.name && <h1>Name</h1> }
+        {!this.props.name && <h2>Date</h2> }
+        <h1 id= 'nameDate' style={{textAlign: 'top'}}>{this.props.name} </h1>
+        <h2 >{this.props.date} </h2>
       {this.state.comments && this.state.comments.length > 1 ? this.state.comments.map(comment => <h3>{comment}</h3>)
       : <h3>{this.props.comments}</h3>}
 
@@ -180,6 +181,8 @@ class Create extends Component {
 
     );
   }
+  // <button onClick= {this.addCreator}> Add Your Name </button>
+  // <br></br>
   // {this.state.commentForm &&
   //   <Modal seeModal={this.state.seeModal} handleClose={this.hideModal} >
   //     <form className='commentForm' onSubmit={this.submitComment}>
@@ -198,6 +201,7 @@ class Create extends Component {
   //     </Modal>}
 
 }
+// <h3>Created By {this.props.creator}</h3>
 // <div className= 'submitReception'>
 //   <form onSubmit={this.submitReception}>
 //   <input type='submit' value="Submit Reception"/>
