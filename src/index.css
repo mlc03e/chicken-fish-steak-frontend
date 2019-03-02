@@ -96,11 +96,12 @@ code {
   border-color: "#4f5359";
   border-width: thin;
   border-style: solid;
-  width: 800px;
-  height: 700px, auto;
+  width: 70%;
+  height: 70%, auto;
   margin-top: 5%;
-  /* margin-left: 20%; */
-  margin-right: 10%;
+  margin-left: 25%;
+  display: float;
+  /* margin-right: 10%; */
 }
 .guestList {
   grid-column: 1/ span 2;
@@ -135,10 +136,75 @@ code {
   border-color: "#4f5359";
   border-width: thin;
   border-style: solid;
-  width: 243px;
-  height: 300px, fixed;
+  width: 20%;
+  height: 30%, fixed;
   margin-left: 50px;
   margin-top: 70px;
+  margin-right: 5%;
   display: fixed;
 
+}
+.loginContainer {
+  border-color: "#4f5359";
+  border-width: thin;
+  border-style: solid;
+  margin-left: 30%;
+  display: inline-grid;
+  margin-right: 30%;
+  margin-top: 10%;
+  padding: 10px;
+}
+.login {
+  border-color: "#4f5359";
+  border-width: thin;
+  border-style: solid;
+
+  display: inline-table;
+
+  padding: 1%;
+}
+.commentLeft {
+  display: inline-block;
+  border-color: red;
+  border-width: thin;
+  border-style: solid;
+  float: left;
+  padding: 2%;
+  width: 300px;
+  margin-bottom: 2%;
+  margin-left: 15%;
+}
+.commentRight {
+  display: inline-block;
+  border-color: blue;
+  border-width: thin;
+  border-style: solid;
+  float: left;
+  padding: 2%;
+  width: 300px;
+  margin-bottom: 2%;
+  /* max-width: 300px; */
+  margin-left: 5%;
+}
+.photoLeft {
+  display: inline-block;
+  border-color: blue;
+  border-width: thin;
+  border-style: solid;
+  float: left;
+  padding: 2%;
+  width: 300px;
+  /* max-width: 300px; */
+  margin-left: 5%;
+}
+.photoRight {
+  display: inline-block;
+  border-color: blue;
+  border-width: thin;
+  border-style: solid;
+  float: left;
+  padding: 2%;
+  width: 300px;
+  /* max-width: 300px; */
+  margin-left: 15%;
 }

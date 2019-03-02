@@ -6,7 +6,7 @@ import Login from './Login'
 import NavBar from './NavBar'
 import Home from './Home'
 import ReactDOM from 'react-router-dom'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 import Create from './Create'
 import Reception from './Reception'
@@ -203,14 +203,20 @@ newGuestSignUp=(name, password)=> {
 //     //   comments: [...this.state.comments, newComment]
 //     // }))
 // }
+currentReceptions=()=>{
+  this.fetchReceptions()
+  .then(()=> <Redirect to="/reception" />)
+
+}
 logOut=()=> {
-  this.setState({currentUser: null})
+  this.setState({currentUser: ''})
 }
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <>
-          <Route path="/" component={()=><NavBar currentUser={this.state.currentUser} />}/>
+          <Route path="/" component={()=><NavBar currentUser={this.state.currentUser} logOut={this.logOut}/>}/>
           <Route path="/login" exact component={()=><Login creatorLogin={this.creatorLogin} guestLogin={this.guestLogin}
             currentUser={this.state.currentUser} loggedIn={this.state.loggedIn} newCreatorSignUp={this.newCreatorSignUp}
             newGuestSignUp={this.newGuestSignUp} logOut={this.logOut}/>}/>
@@ -220,7 +226,7 @@ logOut=()=> {
             guests={this.state.guests} invitedGuestsEmail={this.state.invitedGuestsEmail} submitCreator={this.submitCreator} creator={this.state.creator}
             name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.receptions}/>} />
           <Route path="/reception"  component={()=><Reception receptions={this.state.receptions} fetchReceptions={this.fetchReceptions} comments={this.state.comments}
-            photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto} />}/>
+            photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto} currentReceptions={this.currentReceptions}/>}/>
       </>
 
       </div>

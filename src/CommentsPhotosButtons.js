@@ -50,8 +50,11 @@ class CommentsPhotosButtons extends Component {
   }
   submitComment=(event) => {
     event.preventDefault()
+
     // this.props.logComment(this.state.comment)
     // this.props.postComments(this.props.reception.id)
+
+
     fetch('http://localhost:3000/api/v1/comments', {
       method: "POST",
       headers: {
@@ -66,7 +69,12 @@ class CommentsPhotosButtons extends Component {
       })
     })
       .then(response => response.json())
-      .then(newComment=> this.setState({comments:[...this.state.comments, newComment]}))
+      // .then(newComment => console.log(newComment, this.state.comments))
+      // .then(newComment=> this.setState({comments:[...this.state.comments, newComment]}))
+      .then(newComment=> this.props.reRenderComments(newComment))
+      // .then(()=> this.props.currentReceptions())
+      .then(newComment=> this.hideModal())
+      // this.hideModal()
   }
   addPhoto=()=>{
     this.setState({photoForm: true})
@@ -92,13 +100,19 @@ class CommentsPhotosButtons extends Component {
     })
       .then(response => response.json())
       // .then(newPhoto=>console.log(newPhoto))
-      .then(newPhoto=> this.setState({photos:[...this.state.photos, newPhoto]}))
+      // .then(newPhoto=> this.setState({photos:[...this.state.photos, newPhoto]}))
+      .then(newPhoto=> this.props.reRenderPhotos(newPhoto))
+      // .then(newPhoto => console.log(newPhoto))
+      .then(newPhoto=> this.hideModal())
+
+  }
+  hideModal = () => {
+    this.setState({ seeModal: false })
   }
 
 
-
   render() {
-    // console.log(this.props.reception && this.props.reception.id);
+    console.log(this.props.reception && this.props.reception.id);
     return (
       <div>
 
@@ -113,7 +127,7 @@ class CommentsPhotosButtons extends Component {
           <form className='commentForm' onSubmit={this.submitComment}>
             <input autoFocus style={{ height: '100px', width: '210px', fontSize: '18px'}} onChange={this.handleComment} value={this.state.comment}/>
             <br></br><br></br><br></br>
-            <button type="submit" >Add</button>
+          <button type="submit" >Add</button>
           </form>
         </Modal>}
         {this.state.photoForm &&

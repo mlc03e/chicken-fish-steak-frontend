@@ -64,18 +64,19 @@ class NewUser extends Component {
   }
   render() {
     return (
-      <div>
-      <h1>New User</h1>
+      <div className='login'>
       <form onSubmit={this.handleSubmitNewUser}>
         <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleName} value={this.state.newUser}/>
         <input type= 'password' placeholder={'Password'} style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handlePassword} value={this.state.newUserPassword}/>
+        <select  onChange={this.handleChange}>
+          <option>Select User Type</option>
+          <option value='creator'>Creator</option>
+          <option value='guest'>Guest</option>
+        </select>
+        <br></br>
         <button type="submit">Sign Up</button>
     </form>
-      <select  onChange={this.handleChange}>
-        <option>Select User Type</option>
-        <option value='creator'>Creator</option>
-        <option value='guest'>Guest</option>
-      </select>
+
       </div>
     );
   }
