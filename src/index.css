@@ -5,6 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: grid;
+  color: #404040;
 }
 
 code {
@@ -40,8 +41,8 @@ code {
 }
 .navBar {
   display: flex;
-  background-color: #deeafc;
-  padding: 20px;
+  background-color: #d9eefc;
+  padding: 25px;
   justify-content: space-between;
 }
 .sampleBoard {
@@ -49,7 +50,7 @@ code {
   grid-column-end: span col4-start;
   grid-row-start: 1;
   grid-row-end: span 2;
-  border-color: "#4f5359";
+  border-color: #696969;
   border-width: thin;
   border-style: solid;
   width: 650px;
@@ -61,7 +62,7 @@ code {
   font-size: 20px;
 }
 .createButtons {
-  border-color: "#4f5359";
+  border-color: #696969;
   border-width: thin;
   border-style: solid;
   margin-left: 50px;
@@ -93,14 +94,15 @@ code {
   grid-column-end: span col4-start;
   grid-row-start: 1;
   grid-row-end: span 2;
-  border-color: "#4f5359";
-  border-width: thin;
-  border-style: solid;
+  /* border-color: #696969; */
+  /* border-width: thin;
+  border-style: solid; */
   width: 70%;
   height: 70%, auto;
   margin-top: 5%;
   margin-left: 25%;
   display: float;
+  background-color:	#f2f2f2;
   /* margin-right: 10%; */
 }
 .guestList {
@@ -133,13 +135,14 @@ code {
 .chooseReception {
   grid-column: 1/ span 2;
   grid-row: second-line / 1;
-  border-color: "#4f5359";
-  border-width: thin;
-  border-style: solid;
+  background-color:	#f2f2f2;
+  /* border-color: #696969; */
+  /* border-width: thin;
+  border-style: solid; */
   width: 20%;
   height: 30%, fixed;
   margin-left: 50px;
-  margin-top: 70px;
+  margin-top: 60px;
   margin-right: 5%;
   display: fixed;
 
@@ -207,4 +210,136 @@ code {
   width: 300px;
   /* max-width: 300px; */
   margin-left: 15%;
+}
+.speech-bubble-left{
+  display: inline-grid;
+  margin-top: 40px;
+	position: relative;
+	background: #b7e3ff;
+	border-radius: .4em;
+  margin-right: 35%;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 30px;
+  padding-bottom: -40px;
+  max-width: 300px;
+  min-width: 150px;
+  text-shadow: 1px 1px #FFFAFA;
+}
+
+.speech-bubble-left:after {
+  content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 27px solid transparent;
+	border-top-color: #b7e3ff;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -13.5px;
+	margin-bottom: -27px;
+}
+.speech-bubble-right{
+  display: inline-grid;
+  margin-top: 40px;
+	position: relative;
+	background: #b7e3ff;
+	border-radius: .4em;
+  margin-left: 35%;
+  text-align: center;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 30px;
+  padding-bottom: -80px;
+  max-width: 300px;
+  min-width: 150px;
+  text-shadow: 1px 1px #FFFAFA;
+}
+
+.speech-bubble-right:after {
+  content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 27px solid transparent;
+	border-top-color: #b7e3ff;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -13.5px;
+	margin-bottom: -27px;
+}
+.speech-bubble-left-photo{
+  display: inline-grid;
+  margin-top: 40px;
+	position: relative;
+	background: #b7e3ff;
+	border-radius: .4em;
+  margin-left: 15%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
+
+.speech-bubble-left-photo:after {
+  content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 27px solid transparent;
+	border-top-color: #b7e3ff;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -13.5px;
+	margin-bottom: -27px;
+}
+.speech-bubble-right-photo{
+  display: inline-grid;
+  margin-top: 40px;
+	position: relative;
+	background: #b7e3ff;
+	border-radius: .4em;
+  margin-left: 15%;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.speech-bubble-right-photo:after {
+  content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 27px solid transparent;
+	border-top-color: #b7e3ff;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -13.5px;
+	margin-bottom: -27px;
+}
+#from {
+  content: "-";
+  text-align: right;
+  padding-bottom: 30px;
+}
+.btn {
+  padding: 10px;
+  border-radius: 25px;
+}
+.btn:hover {
+  /* color: #b7e3ff; */
+  color: #4f5359;
+  border-color: currentColor;
+  background-color: #d9eefc;
 }

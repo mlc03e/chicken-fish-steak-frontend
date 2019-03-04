@@ -176,12 +176,12 @@ newGuestSignUp=(name, password)=> {
     })
   })
     .then(response => response.json())
-    .then(guest=>console.log(guest))
-    // .then(creator=> this.setState({
+    // .then(guest=>console.log(guest))
+    .then(guest=> this.setState({
     //
-    //   currentUser: creator,
-    //   loggedIn: true
-    // }))
+      currentUser: guest,
+      loggedIn: true
+    }))
 }
 //   postComments= (receptionId)=> {
 //   fetch('http://localhost:3000/api/v1/comments', {
@@ -203,13 +203,19 @@ newGuestSignUp=(name, password)=> {
 //     //   comments: [...this.state.comments, newComment]
 //     // }))
 // }
+
 currentReceptions=()=>{
   this.fetchReceptions()
   .then(()=> <Redirect to="/reception" />)
-
 }
 logOut=()=> {
   this.setState({currentUser: ''})
+}
+componentDidMount() {
+  fetch('http://localhost:3000/api/v1/guests')
+  .then(response => response.json())
+  .then(guests => this.setState({guests}))
+  // .then(guests => console.log(guests));
 }
   render() {
     console.log(this.state)
@@ -225,7 +231,7 @@ logOut=()=> {
             logComment={this.logComment} logPhoto={this.logPhoto} comments={this.state.comments} photos={this.state.photos}
             guests={this.state.guests} invitedGuestsEmail={this.state.invitedGuestsEmail} submitCreator={this.submitCreator} creator={this.state.creator}
             name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.receptions}/>} />
-          <Route path="/reception"  component={()=><Reception receptions={this.state.receptions} fetchReceptions={this.fetchReceptions} comments={this.state.comments}
+          <Route path="/reception"  component={()=><Reception currentUser={this.state.currentUser} guests={this.state.guests} receptions={this.state.receptions} fetchReceptions={this.fetchReceptions} comments={this.state.comments}
             photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto} currentReceptions={this.currentReceptions}/>}/>
       </>
 

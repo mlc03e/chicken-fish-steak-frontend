@@ -11,7 +11,8 @@ class CommentsPhotosButtons extends Component {
     photo: '',
     seeModal: true,
     comments: [],
-    photos: []
+    photos: [],
+    image: ''
     // receptionId: this.props.reception.id
     // how can I get the reception id so that the comment post has it
   }
@@ -50,40 +51,59 @@ class CommentsPhotosButtons extends Component {
   }
   submitComment=(event) => {
     event.preventDefault()
-
-    // this.props.logComment(this.state.comment)
-    // this.props.postComments(this.props.reception.id)
-
-
-    fetch('http://localhost:3000/api/v1/comments', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-          content: this.state.comment,
-          commentable_id: 1,
-          commentable_type: 'Guest',
-          reception_id: this.props.reception.id
+    if (this.props.currentUser.reception){
+      fetch('http://localhost:3000/api/v1/comments', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            content: this.state.comment,
+            commentable_id: this.props.currentUser.id,
+            commentable_type: 'Guest',
+            reception_id: this.props.reception.id
+        })
       })
-    })
-      .then(response => response.json())
-      // .then(newComment => console.log(newComment, this.state.comments))
-      // .then(newComment=> this.setState({comments:[...this.state.comments, newComment]}))
-      .then(newComment=> this.props.reRenderComments(newComment))
-      // .then(()=> this.props.currentReceptions())
-      .then(newComment=> this.hideModal())
+        .then(response => response.json())
+        // .then(newComment => console.log(newComment, this.state.comments))
+        // .then(newComment=> this.setState({comments:[...this.state.comments, newComment]}))
+        .then(newComment=> this.props.reRenderComments(newComment))
+        // .then(()=> this.props.currentReceptions())
+        .then(newComment=> this.hideModal())
+    }
+    else {
+      fetch('http://localhost:3000/api/v1/comments', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            content: this.state.comment,
+            commentable_id: this.props.currentUser.id,
+            commentable_type: 'Creator',
+            reception_id: this.props.reception.id
+        })
+      })
+        .then(response => response.json())
+        // .then(newComment => console.log(newComment, this.state.comments))
+        // .then(newComment=> this.setState({comments:[...this.state.comments, newComment]}))
+        .then(newComment=> this.props.reRenderComments(newComment))
+        // .then(()=> this.props.currentReceptions())
+        .then(newComment=> this.hideModal())
+    }
+
       // this.hideModal()
   }
   addPhoto=()=>{
     this.setState({photoForm: true})
   }
-  handlePhoto=(event)=>{
-    this.setState({photo: event.target.value})
-  }
-  submitPhoto=(event) => {
-    event.preventDefault()
+  // handlePhoto=(event)=>{
+  //   this.setState({photo: event.target.value})
+  // }
+  submitPhoto=(image) => {
+    // event.preventDefault()
     // this.props.logPhoto(this.state.photo)
     fetch('http://localhost:3000/api/v1/photos', {
       method: "POST",
@@ -92,7 +112,7 @@ class CommentsPhotosButtons extends Component {
         "Accept": "application/json"
       },
       body: JSON.stringify({
-          image: this.state.photo,
+          image: image,
           imageable_id: 1,
           imageable_type: 'Guest',
           reception_id: this.props.reception.id
@@ -101,25 +121,41 @@ class CommentsPhotosButtons extends Component {
       .then(response => response.json())
       // .then(newPhoto=>console.log(newPhoto))
       // .then(newPhoto=> this.setState({photos:[...this.state.photos, newPhoto]}))
+      .then(newPhoto => console.log(newPhoto))
       .then(newPhoto=> this.props.reRenderPhotos(newPhoto))
-      // .then(newPhoto => console.log(newPhoto))
       .then(newPhoto=> this.hideModal())
 
   }
   hideModal = () => {
     this.setState({ seeModal: false })
   }
+  checkUploadResult= (resultEvent)=>{
+    if (resultEvent.event === 'success' ) {
 
+      this.setState({
+        image: resultEvent.info.secure_url
+    },()=> this.submitPhoto(this.state.image))
+    }
 
+  }
+  showWidget= (widget) => {
+    widget.open()
+  }
   render() {
-    console.log(this.props.reception && this.props.reception.id);
+    console.log(this.state.image);
+    let widget = window.cloudinary.createUploadWidget({
+      cloudName: 'dkhlgdovk',
+      uploadPreset: 'assuwulk'
+    },
+    (error, result) => { this.checkUploadResult(result, widget) })
     return (
       <div>
 
         <div >
-          <button onClick={this.addComment}>Add Comment</button>
+          <button className="btn" onClick={this.addComment}>Comment</button>
           <br></br>
-          <button onClick={this.addPhoto}>Add Photo</button>
+
+          <button className="btn" onClick={() => this.showWidget(widget)}>Photo</button>
         </div>
 
         {this.state.commentForm &&
@@ -130,18 +166,19 @@ class CommentsPhotosButtons extends Component {
           <button type="submit" >Add</button>
           </form>
         </Modal>}
-        {this.state.photoForm &&
-        <Modal seeModal={this.state.seeModal} handleClose={this.hideModal} >
-          <form className='commentForm' onSubmit={this.submitPhoto}>
-            <input autoFocus style={{ height: '100px', width: '210px', fontSize: '18px'}} onChange={this.handlePhoto} value={this.state.photo}/>
-            <br></br><br></br><br></br>
-            <button type="submit">Add</button>
-          </form>
-        </Modal>}
+
       </div>
     );
   }
 
 }
-
+// <button className="btn" onClick={this.addPhoto}>Photo</button>
+// {this.state.photoForm &&
+// <Modal seeModal={this.state.seeModal} handleClose={this.hideModal} >
+//   <form className='commentForm' onSubmit={this.submitPhoto}>
+//     <input autoFocus style={{ height: '100px', width: '210px', fontSize: '18px'}} onChange={this.handlePhoto} value={this.state.photo}/>
+//     <br></br><br></br><br></br>
+//     <button type="submit">Add</button>
+//   </form>
+// </Modal>}
 export default CommentsPhotosButtons;
