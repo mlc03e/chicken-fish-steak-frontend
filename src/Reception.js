@@ -15,7 +15,7 @@ class Reception extends Component {
       selectedReception: null,
       comments: [],
       photos: [],
-      combine: [],
+      // combine: [],
       image: ''
     }
 
@@ -43,9 +43,10 @@ class Reception extends Component {
       })
     }
     reRenderPhotos = (photo) => {
-
-      this.setState({
-        photos: [...this.state.photos, photo]
+      this.setState(prevState => {
+        return {
+          photos: [...prevState.photos, photo]
+        }
       })
     }
     combineCommentsPhotos=() => {
@@ -65,15 +66,15 @@ class Reception extends Component {
     //   widget.open()
     // }
   render() {
-    console.log(this.state.photos.map(photo=> photo.image));
-    const commentId= this.state.comments.map(comment=> comment.commentable_id)
-    const guestCommentId= this.props.guests.map(guest=> guest.id)
-    const guestArray= this.props.guests.map(guest=> guest)
-    const merged= [].concat.apply([], guestCommentId)
+    console.log(this.state.photos);
+    // const commentId= this.state.comments.map(comment=> comment.commentable_id)
+    // const guestCommentId= this.props.guests.map(guest=> guest.id)
+    // const guestArray= this.props.guests.map(guest=> guest)
+    // const merged= [].concat.apply([], guestCommentId)
     // const filteredIds= filteredSelected.map(reception=> reception.comments.map(comment=> comment))
     const filteredSelected= this.props.receptions.filter(reception => reception.selected)
     // console.log(filteredSelected.map(reception=> reception.comments.filter(comment=> comment.id === this.state.comments.filter(comment=> comment.commentable_id === filteredSelected.map(reception=> reception.comments.filter(comment=> comment.id))))))
-    // console.log(this.state.comments.filter(comment=> comment.commentable_id === 1) );
+    console.log(this.state.comments.map(comment=> comment.guest_name) );
 
     // let widget = window.cloudinary.createUploadWidget({
     //   cloudName: 'dkhlgdovk',
@@ -91,11 +92,11 @@ class Reception extends Component {
               photoList={this.props.photos} reception={this.state.selectedReception} postComments={this.props.postComments} receptions={this.props.receptions}
               showReceptionDetails={this.showReceptionDetails} currentReceptions={this.props.currentReceptions} currentUser={this.props.currentUser}/>}
             </div>
-          {this.props.receptions.map(reception => <h3 key={reception.creator_id} onClick={()=>this.showReceptionDetails(reception.id)}>{reception.name}</h3>)}
+          {this.props.receptions.map(reception => <h3 key={reception.id} onClick={()=>this.showReceptionDetails(reception.id)}>{reception.name}</h3>)}
         </div>
         <div className='receptionBoard'>
-          {this.state.selectedReception ? filteredSelected.map(reception => <h1 key={reception.creator_id}>{reception.name}</h1> ) : <h1>Reception</h1>}
-          {this.state.selectedReception && this.state.comments.map((comment, index) => <div><div  className= {index% 2 ? 'speech-bubble-left': 'speech-bubble-right'} key={comment.id}><h3>{comment.content}</h3><br></br><p id='from' >{comment.commentable_type}</p></div></div> ) }
+          {this.state.selectedReception ? filteredSelected.map(reception => <div className='receptionHeader'><h1 key={reception.creator_id}>{reception.name}</h1> <h2>{reception.date}</h2></div>) : <h1>Reception</h1>}
+          {this.state.selectedReception && this.state.comments.map((comment, index) => <div><div  className= {index% 2 ? 'speech-bubble-left': 'speech-bubble-right'} key={comment.id}><h3>{comment.content}</h3><br></br><p id='from' >{comment.guest_name}</p></div></div> ) }
           {this.state.selectedReception && this.state.photos.map((photo, index)=> <div className= {index%2 ? 'speech-bubble-left-photo': "speech-bubble-right-photo"}><img key={photo.id} src={photo.image} width= '200px'/></div>)}
 
         </div>

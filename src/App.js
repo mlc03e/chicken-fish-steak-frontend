@@ -17,7 +17,7 @@ class App extends Component {
     commentList: [],
     photoList: [],
     invitedGuestsName: '',
-    invitedGuestsEmail: '',
+    email: '',
     // receptionName: '',
     // receptionDate: '',
     receptionWhole: {},
@@ -37,11 +37,28 @@ class App extends Component {
   storeNameDate=(addedName, addedDate)=> {
     this.setState({name: addedName,
     date: addedDate})
+    this.createReception()
   }
   invitedGuests=(newGuest, newEmail)=> {
-    this.setState({ guests: [...this.state.guests, newGuest],
-    invitedGuestsEmail: [...this.state.invitedGuestsEmail, newEmail]
-    })
+
+    fetch('http://localhost:3000/api/v1/guests', {method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },body: JSON.stringify({
+          name: newGuest,
+          rsvp: true,
+          reception_id: this.state.receptions[0].id,
+          password: '',
+          email: newEmail
+        })
+      })
+        .then(response => response.json())
+        // .then(newReception=> console.log(newReception))
+        .then(newGuest=> this.setState({
+          guests: [...this.state.guests, newGuest],
+          email: [...this.state.email, newEmail]
+        }))
   }
   logComment=(newComment)=> {
     // console.log(newComment)
@@ -51,6 +68,7 @@ class App extends Component {
     this.setState({photos: [...this.state.photos, newPhoto]})
   }
   submitCreator=(creatorName)=> {
+
     this.setState({creator: [...this.state.creator, creatorName]})
   }
   // submitWholeReception=(wholeName, wholeDate, wholeGuest, wholeEmail, wholeComment, wholePhoto)=> {
@@ -70,22 +88,22 @@ class App extends Component {
     }
     )
   }
-  createReception=()=> {
+  createReception=(name, date)=> {
     fetch('http://localhost:3000/api/v1/receptions', {method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },body: JSON.stringify({
-        name: this.state.name,
-        date: this.state.date,
-        creator_id: 1,
+        name: name,
+        date: date,
+        creator_id: this.state.currentUser.id,
       })
     })
       .then(response => response.json())
-      .then(newReception=> console.log(newReception))
-      // .then(newReception=> this.setState({
-      //   receptions: [...this.state.receptions, newReception]
-      // }))
+      // .then(newReception=> console.log(newReception))
+      .then(newReception=> this.setState({
+        receptions: [...this.state.receptions, newReception]
+      }))
   }
   creatorLogin=(name, password)=> {
     fetch('http://localhost:3000/api/v1/creators/login', {
@@ -218,7 +236,7 @@ componentDidMount() {
   // .then(guests => console.log(guests));
 }
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <div className="App">
         <>
@@ -227,7 +245,7 @@ componentDidMount() {
             currentUser={this.state.currentUser} loggedIn={this.state.loggedIn} newCreatorSignUp={this.newCreatorSignUp}
             newGuestSignUp={this.newGuestSignUp} logOut={this.logOut}/>}/>
           <Route path="/home" exact component={Home}/>
-          <Route path="/create"  component={()=><Create storeNameDate={this.storeNameDate} invitedGuests={this.invitedGuests}
+          <Route path="/create"  email= {this.state.email} component={()=><Create storeNameDate={this.storeNameDate} invitedGuests={this.invitedGuests}
             logComment={this.logComment} logPhoto={this.logPhoto} comments={this.state.comments} photos={this.state.photos}
             guests={this.state.guests} invitedGuestsEmail={this.state.invitedGuestsEmail} submitCreator={this.submitCreator} creator={this.state.creator}
             name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.receptions}/>} />

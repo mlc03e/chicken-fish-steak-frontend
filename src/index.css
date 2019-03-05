@@ -14,9 +14,12 @@ code {
 }
 .createContainer {
   display: grid;
+
 }
 .reception {
   display: grid;
+  grid-template-columns: 30% auto;
+  min-height: 950px;
 }
 .createReception {
   display: inline-grid;
@@ -46,36 +49,42 @@ code {
   justify-content: space-between;
 }
 .sampleBoard {
-  grid-column-start: 2;
-  grid-column-end: span col4-start;
+  /* grid-column-start: 2;
+  grid-column-end: span;
   grid-row-start: 1;
-  grid-row-end: span 2;
-  border-color: #696969;
+  grid-row-end: span 3; */
+  /* border-color: #696969;
   border-width: thin;
-  border-style: solid;
-  width: 650px;
+  border-style: solid; */
+  width: 800px;
   height: 500px;
   margin-top: 5%;
-
+  background-color:	#f2f2f2;
+  margin-right: 320px;
 }
 #nameDate {
   font-size: 20px;
 }
 .createButtons {
-  border-color: #696969;
+  /* border-color: #696969;
   border-width: thin;
-  border-style: solid;
-  margin-left: 50px;
-  grid-column: 1/ span 1;
-  grid-row: 1;
-  margin-right: 95px;
-  margin-top: 40px;
+  border-style: solid; */
+  /* margin-left: 50px; */
+  /* grid-column: 1/ span 1;
+  grid-row: 1; */
+  /* margin-right: 95px; */
+  margin-top: 50px;
   padding: 10px;
-  width: 200px;
+  width: 27%;
+  background-color:	#f2f2f2;
+  margin-left: 400px;
 }
 .nameDateForm {
-  padding: 20px;
-  padding-top: 50px;
+  display: inline-grid;
+  padding: 10px;
+
+  text-align: left;
+
 }
 .commentForm {
   padding: 5px;
@@ -108,13 +117,14 @@ code {
 .guestList {
   grid-column: 1/ span 2;
   grid-row: third-line / 4;
-  border-color: "#4f5359";
+  /* border-color: "#4f5359";
   border-width: thin;
-  border-style: solid;
+  border-style: solid; */
   width: 243px;
   height: 300px;
-  margin-left: 50px;
+  margin-left: 20%;
   margin-top: 30px;
+  background-color:	#f2f2f2;
 }
 .comments {
   border-color: "#4f5359";
@@ -133,18 +143,12 @@ code {
   padding: 10px;
 }
 .chooseReception {
-  grid-column: 1/ span 2;
-  grid-row: second-line / 1;
   background-color:	#f2f2f2;
-  /* border-color: #696969; */
-  /* border-width: thin;
-  border-style: solid; */
-  width: 20%;
+  width: 40%;
   height: 30%, fixed;
-  margin-left: 50px;
+  margin-left: 40%;
   margin-top: 60px;
-  margin-right: 5%;
-  display: fixed;
+  /* display: fixed; */
 
 }
 .loginContainer {
@@ -342,4 +346,7 @@ code {
   color: #4f5359;
   border-color: currentColor;
   background-color: #d9eefc;
+}
+.receptionHeader {
+  padding-top: 20px;
 }

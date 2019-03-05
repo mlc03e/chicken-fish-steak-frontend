@@ -113,7 +113,7 @@ class CommentsPhotosButtons extends Component {
       },
       body: JSON.stringify({
           image: image,
-          imageable_id: 1,
+          imageable_id: this.props.currentUser.id,
           imageable_type: 'Guest',
           reception_id: this.props.reception.id
       })
@@ -121,7 +121,7 @@ class CommentsPhotosButtons extends Component {
       .then(response => response.json())
       // .then(newPhoto=>console.log(newPhoto))
       // .then(newPhoto=> this.setState({photos:[...this.state.photos, newPhoto]}))
-      .then(newPhoto => console.log(newPhoto))
+      //.then(newPhoto => console.log(newPhoto))
       .then(newPhoto=> this.props.reRenderPhotos(newPhoto))
       .then(newPhoto=> this.hideModal())
 
@@ -134,7 +134,7 @@ class CommentsPhotosButtons extends Component {
 
       this.setState({
         image: resultEvent.info.secure_url
-    },()=> this.submitPhoto(this.state.image))
+    },() => this.submitPhoto(this.state.image))
     }
 
   }
@@ -154,7 +154,6 @@ class CommentsPhotosButtons extends Component {
         <div >
           <button className="btn" onClick={this.addComment}>Comment</button>
           <br></br>
-
           <button className="btn" onClick={() => this.showWidget(widget)}>Photo</button>
         </div>
 

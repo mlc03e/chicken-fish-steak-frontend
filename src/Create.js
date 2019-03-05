@@ -22,7 +22,8 @@ class Create extends Component {
     photoForm: false,
     photo: '',
     creatorForm: false,
-    creator: ''
+    creator: '',
+
   }
   // componentDidMount() {
   //   this.props.createReception
@@ -56,7 +57,8 @@ class Create extends Component {
   handleSubmitNameDate=(event) => {
     event.preventDefault()
     // console.log('handleSubmitName', event);
-    this.props.storeNameDate(this.state.name, this.state.date)
+    this.props.createReception(this.state.name, this.state.date)
+
   }
   showInviteForm=()=> {
     this.setState({inviteForm: true})
@@ -75,7 +77,6 @@ class Create extends Component {
     event.preventDefault()
     // console.log('handleSubmitInvite', event);
     this.props.invitedGuests(this.state.guest, this.state.email)
-
   }
   handleCreator=(event)=> {
     event.preventDefault()
@@ -84,59 +85,46 @@ class Create extends Component {
   handleCreatorName=(event)=> {
     this.setState({creator: event.target.value})
   }
-  // addComment=()=>{
-  //   this.setState({commentForm: true})
+
+  // hideNameDateForm=()=> {
+  //   this.setState({nameDateForm: false})
   // }
-  // handleComment=(event)=>{
-  //   this.setState({comment: event.target.value})
+  // hideInvite=()=> {
+  //   this.setState({inviteForm: false})
   // }
-  // submitComment=(event) => {
-  //   event.preventDefault()
-  //   this.props.logComment(this.state.comment)
+  // hideComment=()=> {
+  //   this.setState({commentForm: false})
   // }
-  // addPhoto=()=>{
-  //   this.setState({photoForm: true})
+  // hidePhoto=()=> {
+  //   this.setState({photoForm: false})
   // }
-  // handlePhoto=(event)=>{
-  //   this.setState({photo: event.target.value})
-  // }
-  // submitPhoto=(event) => {
-  //   event.preventDefault()
-  //   this.props.logPhoto(this.state.photo)
-  // }
-  hideNameDateForm=()=> {
-    this.setState({nameDateForm: false  })
-  }
-  hideInvite=()=> {
-    this.setState({inviteForm: false})
-  }
-  hideComment=()=> {
-    this.setState({commentForm: false})
-  }
-  hidePhoto=()=> {
-    this.setState({photoForm: false})
-  }
   // submitReception=(event)=> {
   //   event.preventDefault()
   //   this.props.submitWholeReception(this.state.name, this.state.date, this.state.guest, this.state.email, this.state.comment, this.state.photo)
   // }
   render() {
-    // console.log( this.props.submitWholeReception)
+    // const guestReceptionIds= this.props.guests.map(guest=> guest.reception.id)
+    // console.log(this.props.receptions.filter(reception=> reception.id === guestReceptionIds))
+
     return (
     <div className= 'createContainer'>
       <div className= "createButtons">
-
-        <button onClick={this.showNameDateForm}> Add Reception Name and Date</button>
-        <br></br>
-        <button onClick={this.showInviteForm}>Invite Guests</button>
-          <CommentsPhotosButtons logPhoto={this.props.logPhoto} logComment={this.props.logComment} comments={this.props.comments} photos={this.props.photos}/>
-        <br></br>
-        <button onClick={this.createReception}> Create Reception</button>
-
+        <form className='nameDateForm' onSubmit={this.handleSubmitNameDate}>
+          <h4> 1: Add Name and Date</h4>
+          <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleName} value={this.state.name}/>
+          <input placeholder={'Date'}  style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleDate} value={this.state.date}/>
+          <button className="btn" type="submit" >Submit</button>
+        </form>
+        <form className='nameDateForm' onSubmit={this.handleSubmitInvite}>
+          <h4>2: Invite Guests</h4>
+          <input placeholder={'Name'} style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleInviteName} value={this.state.guest}/>
+          <input placeholder={'Email'} style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleInviteEmail} value={this.state.email}/>
+          <button className="btn" type="submit">Add</button>
+        </form>
       </div>
       <div className='guestList'>
         <h2>Guest List</h2>
-        {this.props.guests && <p>Name:{this.props.guests} Email:{this.props.invitedGuestsEmail}</p>}
+        {this.props.receptions.length >= 1 && this.props.guests.map(guest=> <p>Name:{guest.name} Email:{guest.email}</p>)}
       </div>
       <div className='sampleBoard'>
 
@@ -144,43 +132,22 @@ class Create extends Component {
         {!this.props.name && <h2>Date</h2> }
         <h1 id= 'nameDate' style={{textAlign: 'top'}}>{this.props.name} </h1>
         <h2 >{this.props.date} </h2>
-      {this.state.comments && this.state.comments.length > 1 ? this.state.comments.map(comment => <h3>{comment}</h3>)
-      : <h3>{this.props.comments}</h3>}
 
-        <img src={this.props.photos} width='200px'/>
       </div>
-      {this.state.creatorForm &&
-      <Modal seeModal={this.state.seeModal} handleClose={this.hideModal} >
-        <form className='nameDateForm' onSubmit={this.handleCreator}>
-          <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleCreatorName} value={this.state.creator}/>
-          <br></br><br></br><br></br>
-          <button type="submit">Add</button>
-        </form>
-      </Modal>}
-      {this.state.nameDateForm &&
-      <Modal seeModal={this.state.seeModal} handleClose={this.hideModal} >
-        <form className='nameDateForm' onSubmit={this.handleSubmitNameDate}>
-          <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleName} value={this.state.name}/>
-          <input placeholder={'Date'}  style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleDate} value={this.state.date}/>
-          <br></br><br></br><br></br>
-          <button type="submit">Add</button>
-        </form>
-      </Modal>}
-      {this.state.inviteForm &&
-      <Modal seeModal={this.state.seeModal} handleClose={this.hideModal} >
-        <form className='nameDateForm' onSubmit={this.handleSubmitInvite}>
-          <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleInviteName} value={this.state.guest}/>
-          <input placeholder={'Email'} style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleInviteEmail} value={this.state.email}/>
-          <br></br><br></br><br></br>
-          <button type="submit">Add</button>
-        </form>
-      </Modal>}
+
+
+
+
+
+
+
 
 
     </div>
 
     );
   }
+  // <CommentsPhotosButtons logPhoto={this.props.logPhoto} logComment={this.props.logComment} comments={this.props.comments} photos={this.props.photos}/>
   // <button onClick= {this.addCreator}> Add Your Name </button>
   // <br></br>
   // {this.state.commentForm &&
@@ -218,5 +185,6 @@ class Create extends Component {
 //     makeJi: (name) => dispatch({type: "MAKE_JI", payload: name})
 //   }
 // }
+
 // export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Create));
 export default withRouter(Create);
