@@ -15,7 +15,7 @@ class Reception extends Component {
       selectedReception: null,
       comments: [],
       photos: [],
-      // combine: [],
+      search: '',
       image: ''
     }
 
@@ -33,9 +33,12 @@ class Reception extends Component {
     })
     }
 
-    chooseReception=()=> {
-       this.props.fetchReceptions()
-    }
+    // chooseReception=(event)=> {
+    //    this.setState({search: event.target.value},()=>{
+    //      this.props.filterReceptions(this.state.search)
+    //    });
+    //    this.props.fetchReceptions()
+    // }
 
     reRenderComments = (comment) => {
       this.setState({
@@ -66,27 +69,20 @@ class Reception extends Component {
     //   widget.open()
     // }
   render() {
-    console.log(this.state.photos);
-    // const commentId= this.state.comments.map(comment=> comment.commentable_id)
-    // const guestCommentId= this.props.guests.map(guest=> guest.id)
-    // const guestArray= this.props.guests.map(guest=> guest)
-    // const merged= [].concat.apply([], guestCommentId)
-    // const filteredIds= filteredSelected.map(reception=> reception.comments.map(comment=> comment))
+    console.log(this.props.receptions);
     const filteredSelected= this.props.receptions.filter(reception => reception.selected)
-    // console.log(filteredSelected.map(reception=> reception.comments.filter(comment=> comment.id === this.state.comments.filter(comment=> comment.commentable_id === filteredSelected.map(reception=> reception.comments.filter(comment=> comment.id))))))
-    console.log(this.state.comments.map(comment=> comment.guest_name) );
-
-    // let widget = window.cloudinary.createUploadWidget({
-    //   cloudName: 'dkhlgdovk',
-    //   uploadPreset: 'assuwulk'
-    // },
-    // (error, result) => { this.checkUploadResult(result, widget) })
 
     return (
       <div className='reception'>
 
         <div className='chooseReception'>
-          <h2 onClick={this.chooseReception}>Choose Reception</h2>
+
+            <div className='container'>
+          <h2>Choose Reception</h2>
+
+          <input type='text' autoFocus onChange={this.props.chooseReception}  value={this.props.searchInput}/>
+
+          </div>
             <div className='createCommentsPhotos'>
             {this.state.selectedReception && <CommentsPhotosButtons image={this.state.image} reRenderComments={this.reRenderComments} reRenderPhotos={this.reRenderPhotos} logPhoto={this.props.logPhoto} logComment={this.props.logComment} commentList={this.props.comments}
               photoList={this.props.photos} reception={this.state.selectedReception} postComments={this.props.postComments} receptions={this.props.receptions}
@@ -104,6 +100,8 @@ class Reception extends Component {
       </div>
     );
   }
+  // <h2 onClick={this.chooseReception}>Choose Reception</h2>
+  // {this.state.selectedReception ? filteredSelected.map(reception => <div className='receptionHeader'><h1 key={reception.creator_id}>{reception.name}</h1> <h2>{reception.date}</h2></div>) : <h1>Reception</h1>}
   // <img src={this.state.image} width= '200px'/>
   // <button onClick={() => this.showWidget(widget)}>Add Photo</button>
 // {this.state.selectedReception && this.state.map(selectedReception=> <h1>{selectedReception.comments, selectedReception.photos}</h1>)}

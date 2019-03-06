@@ -6,6 +6,7 @@ import { withRouter } from "react-router";
 import Modal from './Modal'
 import v4 from 'uuid'
 import CommentsPhotosButtons from './CommentsPhotosButtons'
+import InviteGuest from './InviteGuest'
 
 
 class Create extends Component {
@@ -15,15 +16,15 @@ class Create extends Component {
     nameDateForm: false,
     seeModal: true,
     inviteForm: false,
-    guest: '',
-    email: '',
+    // guest: '',
+    // email: '',
     commentForm: false,
     comment: '',
     photoForm: false,
     photo: '',
     creatorForm: false,
     creator: '',
-
+    // submitted: false
   }
   // componentDidMount() {
   //   this.props.createReception
@@ -32,18 +33,18 @@ class Create extends Component {
   createReception= ()=> {
     this.props.createReception()
   }
-  addCreator= ()=> {
-    this.setState({creatorForm: true })
-  }
-  showNameDateForm= () => {
-    this.setState({ nameDateForm: true })
-  }
-  showModal = () => {
-    this.setState({ seeModal: true })
-  }
-  hideModal = () => {
-    this.setState({ seeModal: false })
-  }
+  // addCreator= ()=> {
+  //   this.setState({creatorForm: true })
+  // }
+  // showNameDateForm= () => {
+  //   this.setState({ nameDateForm: true })
+  // }
+  // showModal = () => {
+  //   this.setState({ seeModal: true })
+  // }
+  // hideModal = () => {
+  //   this.setState({ seeModal: false })
+  // }
   handleName=(event) => {
     this.setState({
       name: event.target.value
@@ -63,21 +64,21 @@ class Create extends Component {
   showInviteForm=()=> {
     this.setState({inviteForm: true})
   }
-  handleInviteName=(event) => {
-    this.setState({
-      guest: event.target.value
-    })
-  }
-  handleInviteEmail=(event) => {
-    this.setState({
-      email: event.target.value
-    })
-  }
-  handleSubmitInvite=(event) => {
-    event.preventDefault()
-    // console.log('handleSubmitInvite', event);
-    this.props.invitedGuests(this.state.guest, this.state.email)
-  }
+  // handleInviteName=(event) => {
+  //   this.setState({
+  //     guest: event.target.value
+  //   })
+  // }
+  // handleInviteEmail=(event) => {
+  //   this.setState({
+  //     email: event.target.value
+  //   })
+  // }
+  // handleSubmitInvite=(event) => {
+  //   event.preventDefault()
+  //   // console.log('handleSubmitInvite', event);
+  //   this.props.invitedGuests(this.state.guest, this.state.email)
+  // }
   handleCreator=(event)=> {
     event.preventDefault()
     this.props.submitCreator(this.state.creator)
@@ -105,33 +106,31 @@ class Create extends Component {
   render() {
     // const guestReceptionIds= this.props.guests.map(guest=> guest.reception.id)
     // console.log(this.props.receptions.filter(reception=> reception.id === guestReceptionIds))
-
+    // console.log(this.props.receptions);
+    // console.log(this.props.submitted);
     return (
     <div className= 'createContainer'>
       <div className= "createButtons">
+        {!this.props.submitted &&
+          <div className='nameDateFormContainer'>
+          <img id='number' src='https://commerceguys.com/sites/default/files/1.png' width= '60px' />
+          <h4 id='nameDateTitle'> Add Name and Date</h4>
         <form className='nameDateForm' onSubmit={this.handleSubmitNameDate}>
-          <h4> 1: Add Name and Date</h4>
           <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleName} value={this.state.name}/>
           <input placeholder={'Date'}  style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleDate} value={this.state.date}/>
           <button className="btn" type="submit" >Submit</button>
         </form>
-        <form className='nameDateForm' onSubmit={this.handleSubmitInvite}>
-          <h4>2: Invite Guests</h4>
-          <input placeholder={'Name'} style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleInviteName} value={this.state.guest}/>
-          <input placeholder={'Email'} style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleInviteEmail} value={this.state.email}/>
-          <button className="btn" type="submit">Add</button>
-        </form>
-      </div>
-      <div className='guestList'>
-        <h2>Guest List</h2>
-        {this.props.receptions.length >= 1 && this.props.guests.map(guest=> <p>Name:{guest.name} Email:{guest.email}</p>)}
+        </div>}
+        {this.props.submitted && <InviteGuest receptionId={this.props.receptionId} receptions={this.props.receptions} invitedGuests={this.props.invitedGuests} guests={this.props.guests}/>}
       </div>
       <div className='sampleBoard'>
 
-        {!this.props.name && <h1>Name</h1> }
-        {!this.props.name && <h2>Date</h2> }
-        <h1 id= 'nameDate' style={{textAlign: 'top'}}>{this.props.name} </h1>
-        <h2 >{this.props.date} </h2>
+        {this.props.submitted ? this.props.receptions.map(reception=> <h1 >{reception.name} </h1>): <h1>Name</h1> }
+        {this.props.submitted ? this.props.receptions.map(reception=> <h2 >{reception.date} </h2>): <h2>Date</h2>}
+        <div className='guestList'>
+          <h2>Guest List</h2>
+          {this.props.guests.map(guest=> <p>Name:{guest.name} Email:{guest.email}</p>)}
+        </div>
 
       </div>
 

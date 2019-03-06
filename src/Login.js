@@ -104,14 +104,14 @@ class Login extends Component {
           <form onSubmit={this.handleSubmitLogin}>
           <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleLoginName} value={this.state.loginName}/>
           <input placeholder={'Password'} style={{ height: '30px', width: '200px', fontSize: '28px'}} type='password' onChange={this.handleLoginPassword} value={this.state.password}/>
-          <br></br>
-            <select value={this.state.value} onChange={this.handleChange}>
+          <br></br><br></br>
+            <select className= 'btn' value={this.state.value} onChange={this.handleChange}>
               <option>Select User Type</option>
               <option value='creator'>Creator</option>
               <option value='guest'>Guest</option>
             </select>
-          <br></br>
-          <button type="submit" >Log In</button>
+          <br></br><br></br>
+          <button className= 'btn' type="submit" >Log In</button>
         </form>
 
 
