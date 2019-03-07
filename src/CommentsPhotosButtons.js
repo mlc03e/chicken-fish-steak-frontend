@@ -51,7 +51,7 @@ class CommentsPhotosButtons extends Component {
   }
   submitComment=(event) => {
     event.preventDefault()
-    if (this.props.currentUser.reception){
+    if (this.props.currentUser.rsvp){
       fetch('http://localhost:3000/api/v1/comments', {
         method: "POST",
         headers: {
@@ -127,7 +127,7 @@ class CommentsPhotosButtons extends Component {
 
   }
   hideModal = () => {
-    this.setState({ seeModal: false })
+    this.setState({ commentForm: false })
   }
   checkUploadResult= (resultEvent)=>{
     if (resultEvent.event === 'success' ) {
@@ -142,7 +142,7 @@ class CommentsPhotosButtons extends Component {
     widget.open()
   }
   render() {
-    console.log(this.state.image);
+    console.log(this.props.reception.id);
     let widget = window.cloudinary.createUploadWidget({
       cloudName: 'dkhlgdovk',
       uploadPreset: 'assuwulk'

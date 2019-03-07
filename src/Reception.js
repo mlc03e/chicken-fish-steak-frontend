@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import ReactDOM from 'react-router-dom'
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
-import Modal from './Modal'
+// import Modal from './Modal'
 import CommentsPhotosButtons from './CommentsPhotosButtons'
 import ChatBubble from 'react-chat-bubble';
 
@@ -52,11 +52,11 @@ class Reception extends Component {
         }
       })
     }
-    combineCommentsPhotos=() => {
-      this.setState({
-        combine: [...this.state.photos, this.state.comments]
-      })
-    }
+    // combineCommentsPhotos=() => {
+    //   this.setState({
+    //     combine: [...this.state.photos, this.state.comments]
+    //   })
+    // }
     // checkUploadResult= (resultEvent)=>{
     //   if (resultEvent.event === 'success' ) {
     //     this.setState({
@@ -69,7 +69,7 @@ class Reception extends Component {
     //   widget.open()
     // }
   render() {
-    console.log(this.props.receptions);
+    console.log(this.props.currentUser);
     const filteredSelected= this.props.receptions.filter(reception => reception.selected)
 
     return (
@@ -91,9 +91,9 @@ class Reception extends Component {
           {this.props.receptions.map(reception => <h3 key={reception.id} onClick={()=>this.showReceptionDetails(reception.id)}>{reception.name}</h3>)}
         </div>
         <div className='receptionBoard'>
-          {this.state.selectedReception ? filteredSelected.map(reception => <div className='receptionHeader'><h1 key={reception.creator_id}>{reception.name}</h1> <h2>{reception.date}</h2></div>) : <h1>Reception</h1>}
+          {this.state.selectedReception ? filteredSelected.map(reception => <div className='receptionHeader'><h1 key={reception.id}>{reception.name}</h1> <h2>{reception.date}</h2></div>) : <h1>Reception</h1>}
           {this.state.selectedReception && this.state.comments.map((comment, index) => <div><div  className= {index% 2 ? 'speech-bubble-left': 'speech-bubble-right'} key={comment.id}><h3>{comment.content}</h3><br></br><p id='from' >{comment.guest_name}</p></div></div> ) }
-          {this.state.selectedReception && this.state.photos.map((photo, index)=> <div className= {index%2 ? 'speech-bubble-left-photo': "speech-bubble-right-photo"}><img key={photo.id} src={photo.image} width= '200px'/></div>)}
+          {this.state.selectedReception && this.state.photos.map((photo, index)=> <div className= {index%2 ? 'speech-bubble-left-photo': "speech-bubble-right-photo"}><img key={photo.id} src={photo.image} width= '200px'/><p>{photo.guest_name}</p></div>)}
 
         </div>
 

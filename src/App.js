@@ -18,9 +18,7 @@ class App extends Component {
     photoList: [],
     invitedGuestsName: '',
     email: '',
-    // receptionName: '',
-    // receptionDate: '',
-    receptionWhole: {},
+    // receptionWhole: {},
     receptions: [],
     name: '',
     date: '',
@@ -34,7 +32,8 @@ class App extends Component {
     submitted: false,
     receptionId: '',
     filterReceptions: [],
-    searchInput: ''
+    searchInput: '',
+    reception: {}
   }
   storeNameDate=(addedName, addedDate)=> {
     this.setState({name: addedName,
@@ -74,9 +73,7 @@ class App extends Component {
 
     this.setState({creator: [...this.state.creator, creatorName]})
   }
-  // submitWholeReception=(wholeName, wholeDate, wholeGuest, wholeEmail, wholeComment, wholePhoto)=> {
-  //   this.setState({ receptionWhole: {wholeName, wholeDate, wholeGuest, wholeEmail, wholeComment, wholePhoto}})
-  // }
+
   // fetchReceptions= ()=> {
     componentDidMount() {
 
@@ -111,7 +108,8 @@ class App extends Component {
       .then(newReception=> this.setState({
         receptions: [...this.state.receptions, newReception],
         receptionId: newReception.id,
-        submitted: true
+        submitted: true,
+        reception: newReception
       }))
   }
   creatorLogin=(name, password)=> {
@@ -237,6 +235,7 @@ currentReceptions=()=>{
 }
 logOut=()=> {
   this.setState({currentUser: ''})
+  .then(()=> <Redirect to="/login" />)
 }
 
 // componentDidMount() {
@@ -244,7 +243,8 @@ logOut=()=> {
 // }
 chooseReception=(event)=> {
   // debugger
-  console.log(event.target.value);
+  // console.log(event.target.value);
+  // this.fetchReceptions()
   this.setState({searchInput: event.target.value})
 
 }
@@ -258,7 +258,6 @@ chooseReception=(event)=> {
 // }
 searchReceptions= () => {
     return this.state.receptions.filter(reception => reception.name.toLowerCase().includes(this.state.searchInput.toLowerCase()))
-
   }
   render() {
     // console.log(this.state.receptionId);
@@ -274,7 +273,7 @@ searchReceptions= () => {
           <Route path="/create"   component={()=>  <Create receptionId={this.state.receptionId} submitted={this.state.submitted} email= {this.state.email} storeNameDate={this.storeNameDate} invitedGuests={this.invitedGuests}
             logComment={this.logComment} logPhoto={this.logPhoto} comments={this.state.comments} photos={this.state.photos}
             guests={this.state.guests} invitedGuestsEmail={this.state.invitedGuestsEmail} submitCreator={this.submitCreator} creator={this.state.creator}
-            name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.receptions}/>} />
+            name={this.state.name} date={this.state.date} createReception={this.createReception} receptions={this.state.reception}/>} />
           <Route path="/reception"  component={()=><Reception filterReceptions={this.filterReceptions} currentUser={this.state.currentUser} guests={this.state.guests} receptions={this.searchReceptions()} fetchReceptions={this.fetchReceptions} comments={this.state.comments}
             searchInput={this.state.searchInput} chooseReception={this.chooseReception}photos={this.state.photos} logComment={this.logComment} logPhoto={this.logPhoto} currentReceptions={this.currentReceptions}/>}/>
       </>

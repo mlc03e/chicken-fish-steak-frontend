@@ -104,16 +104,17 @@ class Create extends Component {
   //   this.props.submitWholeReception(this.state.name, this.state.date, this.state.guest, this.state.email, this.state.comment, this.state.photo)
   // }
   render() {
-    // const guestReceptionIds= this.props.guests.map(guest=> guest.reception.id)
-    // console.log(this.props.receptions.filter(reception=> reception.id === guestReceptionIds))
-    // console.log(this.props.receptions);
+
+
+    // console.log(this.props.receptions.name, this.props.receptions.date);
     // console.log(this.props.submitted);
     return (
     <div className= 'createContainer'>
       <div className= "createButtons">
+        {this.props.submitted && <InviteGuest receptionId={this.props.receptionId} receptions={this.props.receptions} invitedGuests={this.props.invitedGuests} guests={this.props.guests}/>}
         {!this.props.submitted &&
           <div className='nameDateFormContainer'>
-          <img id='number' src='https://commerceguys.com/sites/default/files/1.png' width= '60px' />
+          <img id='number' src='https://commerceguys.com/sites/default/files/1.png' width= '75px' />
           <h4 id='nameDateTitle'> Add Name and Date</h4>
         <form className='nameDateForm' onSubmit={this.handleSubmitNameDate}>
           <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleName} value={this.state.name}/>
@@ -121,31 +122,25 @@ class Create extends Component {
           <button className="btn" type="submit" >Submit</button>
         </form>
         </div>}
-        {this.props.submitted && <InviteGuest receptionId={this.props.receptionId} receptions={this.props.receptions} invitedGuests={this.props.invitedGuests} guests={this.props.guests}/>}
+
       </div>
       <div className='sampleBoard'>
 
-        {this.props.submitted ? this.props.receptions.map(reception=> <h1 >{reception.name} </h1>): <h1>Name</h1> }
-        {this.props.submitted ? this.props.receptions.map(reception=> <h2 >{reception.date} </h2>): <h2>Date</h2>}
+        {this.props.submitted ?  <h1 id='name'>{this.props.receptions.name} </h1>: <h1>Name</h1> }
+        {this.props.submitted ?  <h2 id='date'>{this.props.receptions.date} </h2>: <h2>Date</h2>}
         <div className='guestList'>
-          <h2>Guest List</h2>
+          <img id='guestListIcon' src={require('./pics/guestList.png')} alt='create'/><br/>
+          <h2 id='title'>Guest List</h2>
           {this.props.guests.map(guest=> <p>Name:{guest.name} Email:{guest.email}</p>)}
         </div>
 
       </div>
-
-
-
-
-
-
-
-
-
     </div>
 
     );
   }
+  // {this.props.submitted ? this.props.receptions.map(reception=> <h1 >{reception.name} </h1>): <h1>Name</h1> }
+  // {this.props.submitted ? this.props.receptions.map(reception=> <h2 >{reception.date} </h2>): <h2>Date</h2>}
   // <CommentsPhotosButtons logPhoto={this.props.logPhoto} logComment={this.props.logComment} comments={this.props.comments} photos={this.props.photos}/>
   // <button onClick= {this.addCreator}> Add Your Name </button>
   // <br></br>

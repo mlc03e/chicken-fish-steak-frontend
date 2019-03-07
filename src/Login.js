@@ -97,13 +97,15 @@ class Login extends Component {
     // console.log("PROPS IN LOGIN", this.props.loggedIn);
     return (
       <div className='loginContainer'>
-        {this.props.loggedIn && <Redirect to="/home" />}
-        <h1 onClick={this.handleLogin}>Log In</h1>
-
+          {this.props.loggedIn && <Redirect to="/home" />}
           <div className='login'>
+            <h1 onClick={this.handleLogin}>Log In</h1>
+            <h1 onClick={this.handleNewUser}>New User?</h1>
+          </div>
+          {!this.state.newUser ?
           <form onSubmit={this.handleSubmitLogin}>
-          <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleLoginName} value={this.state.loginName}/>
-          <input placeholder={'Password'} style={{ height: '30px', width: '200px', fontSize: '28px'}} type='password' onChange={this.handleLoginPassword} value={this.state.password}/>
+            <input placeholder={'Name'} autoFocus style={{ height: '30px', width: '200px', fontSize: '28px'}} onChange={this.handleLoginName} value={this.state.loginName}/>
+            <input placeholder={'Password'} style={{ height: '30px', width: '200px', fontSize: '28px'}} type='password' onChange={this.handleLoginPassword} value={this.state.password}/>
           <br></br><br></br>
             <select className= 'btn' value={this.state.value} onChange={this.handleChange}>
               <option>Select User Type</option>
@@ -113,12 +115,7 @@ class Login extends Component {
           <br></br><br></br>
           <button className= 'btn' type="submit" >Log In</button>
         </form>
-
-
-        </div>
-      <h1 onClick={this.handleNewUser}>New User?</h1>
-      {this.state.newUser && <NewUser newCreatorSignUp={this.props.newCreatorSignUp} newGuestSignUp={this.props.newGuestSignUp} />}
-
+          : <NewUser newCreatorSignUp={this.props.newCreatorSignUp} newGuestSignUp={this.props.newGuestSignUp} />}
       </div>
     );
   }
