@@ -138,7 +138,9 @@ code {
   padding: 10px;
   justify-content: space-between;
 }
-
+.navBar a:hover {
+  color: salmon;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -201,7 +203,7 @@ code {
   width: 50%;
   height: 600px;
   margin-top: 1%;
-  /* background-color:	#f2f2f2; */
+  background-color:	#f2f2f2;
   margin-left: 25%;
 }
 .sampleBoard id{
@@ -213,7 +215,7 @@ code {
 .createButtons {
   margin-top: 50px;
   width: 20%;
-  /* background-color:	#f2f2f2; */
+  background-color:	#f2f2f2;
   margin-left: 40%;
   border-radius: 25px;
   padding-bottom: 20px;
@@ -231,18 +233,37 @@ code {
   padding: 5px;
   padding-top: 15px;
 }
+.insideReceptionBoard{
+  background-color: white;
+  border-style: solid;
+  width: 43%;
+  margin-left: 3.5%;
+  border-radius: 15px;
+  /* height: 75%; */
+  height:60%;
+  overflow: scroll;
+  /* min-height: 75%; */
+  position: fixed;
+}
 .receptionBoard {
+  position: fixed;
+  height: 79%;
+  width: 50%;
   grid-column-start: 2;
   grid-column-end: span col4-start;
   grid-row-start: 1;
   grid-row-end: span 2;
-  width: 70%;
-  height: 70%, auto;
-  margin-top: 5%;
-  margin-left: 7%;
+  /* width: 70%; */
+  /* max-height: 14%; */
+  /* margin-top: 5%; */
+  margin-top: 3.5%;
+  margin-left: 35%;
   display: float;
   background-color:	#f2f2f2;
-  border-radius: 25px;
+  /* border-radius: 25px; */
+  border-style: solid;
+  border-radius: 15px;
+  /* min-height: 74%; */
 }
 .guestList {
 
@@ -270,8 +291,8 @@ code {
   margin-left: 20px;
   display: flex;
   margin-right: 20px;
-  margin-top: 20px;
   padding: 10px;
+  justify-content: space-around;
 }
 .chooseReception {
   background-color:	#f2f2f2;
@@ -279,9 +300,31 @@ code {
   height: 30%, fixed;
   margin-left: 55%;
   margin-top: 67px;
-  overflow-x: scroll;
-  /* display: fixed; */
-  border-radius: 25px;
+  flex-direction: column;
+  display: flex;
+  /* border-radius: 25px; */
+  border-style: solid;
+  border-radius: 15px;
+}
+.chooseReception :hover {
+  color: salmon;
+}
+.chooseReception h1 {
+  margin: 0;
+}
+.container {
+  display: flex;
+  height: 30px;
+  width: 80%;
+  /* flex-direction: column; */
+  margin-left: 25%;
+  /* margin-top: 40px; */
+}
+.container img {
+  max-height: 3vh;
+  width: auto;
+  margin-left: 8px;
+  /* margin-top: 18px; */
 }
 .loginContainer {
   display:flex;
@@ -306,8 +349,13 @@ code {
   /* padding: 30%; */
 }
 
+.login h1:hover {
+  margin: 10px 20px 20px 20px;
+  color:salmon;
+}
 .login h1 {
-  margin: 10px 20px 10px 20px;
+  margin: 10px 20px 20px 20px;
+  
 }
 .commentLeft {
   display: inline-block;
@@ -356,7 +404,7 @@ code {
 }
 .speech-bubble-left{
   display: inline-grid;
-  margin-top: 40px;
+  margin-top: 30px;
 	position: relative;
 	background: #b7e3ff;
 	border-radius: .4em;
@@ -386,7 +434,7 @@ code {
 }
 .speech-bubble-right{
   display: inline-grid;
-  margin-top: 40px;
+  margin-top: 30px;
 	position: relative;
 	background: #b7e3ff;
 	border-radius: .4em;
@@ -417,11 +465,11 @@ code {
 }
 .speech-bubble-left-photo{
   display: inline-grid;
-  margin-top: 40px;
+  margin-top: 15px;
 	position: relative;
 	background: #b7e3ff;
 	border-radius: .4em;
-  margin-left: 15%;
+  margin-right: 50%;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 20px;
@@ -445,11 +493,11 @@ code {
 }
 .speech-bubble-right-photo{
   display: inline-grid;
-  margin-top: 40px;
+  margin-top: 15px;
 	position: relative;
 	background: #b7e3ff;
 	border-radius: .4em;
-  margin-left: 15%;
+  margin-left: 50%;
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
@@ -477,8 +525,10 @@ code {
   padding-bottom: 30px;
 }
 .btn {
-  padding: 10px;
-  border-radius: 25px;
+  padding: 15px;
+  border-radius: 15px;
+  width: 100%;
+  margin-top: 5px;
 }
 .btn:hover {
   /* color: #b7e3ff; */
@@ -488,4 +538,17 @@ code {
 }
 .receptionHeader {
   padding-top: 20px;
+}
+.dropdown {
+  padding: 15px;
+  border-radius: 15px;
+  width: 100%;
+  margin-top: 5px;
+  height: 40px;
+}
+.dropdown:hover {
+  /* color: #b7e3ff; */
+  color: #4f5359;
+  border-color: currentColor;
+  background-color: #d9eefc;
 }
